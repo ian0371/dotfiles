@@ -35,6 +35,7 @@
       websocat
       wget
       xclip
+      unzip
     ]
     ++ lib.optionals stdenv.isLinux [
       coreutils

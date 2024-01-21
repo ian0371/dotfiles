@@ -17,6 +17,9 @@
       drg = "darwin-rebuild --list-generations";
       drs = "darwin-rebuild switch --flake ~/dotfiles";
 
+      # nixos
+      nrs = "sudo nixos-rebuild switch --flake ~/dotfiles";
+
       # docker
       dco = "docker-compose";
       dcup = "docker-compose up";

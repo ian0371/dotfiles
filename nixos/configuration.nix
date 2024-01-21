@@ -54,6 +54,8 @@
       extraGroups = [ "wheel" "docker" "networkmanager" "sudo" ];
     };
   };
+  users.defaultUserShell = pkgs.unstable.zsh;
+  programs.zsh.enable = true;
 
   services.openssh = {
     enable = true;

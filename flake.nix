@@ -86,12 +86,16 @@
 
       homeConfigurations = {
         song = hmConfigWrapper { system = "aarch64-darwin"; };
+        yum3 = hmConfigWrapper {
+          system = "aarch64-linux";
+          extraModules = [{ home.username = "yum3"; }];
+        };
         ubuntu = hmConfigWrapper {
           system = "x86_64-linux";
           extraModules = [{ home.username = "ubuntu"; }];
         };
         ec2-user = hmConfigWrapper {
-          system = "aarch64-linux";
+          system = "x86_64-linux";
           extraModules = [{ home.username = "ec2-user"; }];
         };
       };
