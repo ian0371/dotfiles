@@ -69,6 +69,15 @@
       overlays = import ./overlays { inherit inputs; };
       homeManagerModules = import ./modules/home-manager;
 
+      nixosConfigurations = {
+        nixos = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs outputs; };
+          modules = [
+            ./nixos/configuration.nix
+          ];
+        };
+      };
+
       darwinConfigurations = {
         # scutil --get LocalHostName
         "Chihyunui-Macmini" = darwinConfigWrapper { system = "aarch64-darwin"; };
