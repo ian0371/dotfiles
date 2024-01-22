@@ -19,7 +19,7 @@ config.font = wezterm.font("CaskaydiaCove Nerd Font Mono")
 config.font_size = 14
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 
-config.bell.audible_bell = "Disabled"
+config.audible_bell = "Disabled"
 
 function tmux_select_pane_key(num)
 	return wezterm.action.Multiple({

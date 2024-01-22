@@ -88,6 +88,7 @@ in
 
   xdg.configFile = {
     "starship.toml".source = ./static/starship.toml;
+    "wezterm".source = ./static/wezterm;
     "phoenix".source = ./static/phoenix;
     nvim = {
       source = astronvim;
