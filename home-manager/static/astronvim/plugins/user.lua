@@ -59,8 +59,22 @@ return {
 		},
 	},
 	{
-		"github/copilot.vim",
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
 		event = "InsertEnter",
+		config = function()
+			require("copilot").setup({
+				suggestion = { enabled = false },
+				panel = { enabled = false },
+			})
+		end,
+	},
+	{
+		"zbirenbaum/copilot-cmp",
+		event = "InsertEnter",
+		config = function()
+			require("copilot_cmp").setup()
+		end,
 	},
 	{
 		"hrsh7th/nvim-cmp",
@@ -68,19 +82,15 @@ return {
 		opts = function(_, opts)
 			-- opts parameter is the default options table
 			-- the function is lazy loaded so cmp is able to be required
-			local cmp = require("cmp")
-			-- modify the mapping part of the table
-			opts.mapping["<C-j>"] = cmp.mapping(function(fallback)
-				local copilot_keys = vim.fn["copilot#Accept"]()
-
-				if copilot_keys ~= "" and type(copilot_keys) == "string" then
-					vim.api.nvim_feedkeys(copilot_keys, "i", true)
-				elseif cmp.visible() then
-					cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-				end
-			end)
-
 			opts.experimental = { ghost_text = false }
+			opts.sources = {
+				-- Copilot Source
+				{ name = "copilot", group_index = 2 },
+				-- Other Sources
+				{ name = "nvim_lsp", group_index = 2 },
+				{ name = "path", group_index = 2 },
+				{ name = "luasnip", group_index = 2 },
+			}
 
 			-- return the new table to be used
 			return opts
