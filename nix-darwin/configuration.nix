@@ -54,7 +54,7 @@
     onActivation.autoUpdate = true;
     onActivation.cleanup = "uninstall";
     brews = [
-      "cirruslabs/cli/tart"
+      "tart"
     ];
     casks = [
       "alfred"
