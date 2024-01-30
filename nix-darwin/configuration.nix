@@ -60,6 +60,7 @@
       "alfred"
       "bettertouchtool"
       "iterm2"
+      "keka"
       "phoenix"
       "wezterm"
     ];
