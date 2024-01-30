@@ -39,6 +39,7 @@
       gco = "git checkout";
       gcob = "git checkout -b";
       gd = "git diff";
+      gdd = "git difftool --tool=difftastic";
       gdca = "git diff --cached";
       gf = "git fetch";
       gl = "git pull";

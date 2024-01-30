@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   programs.git = {
     enable = true;
@@ -19,7 +20,7 @@
       # for bitbucket/stash remotes
       spr = ''!f() { git fetch -fu ''${2:-$(git remote |grep ^upstream || echo origin)} refs/pull-requests/$1/from:pr/$1 && git checkout pr/$1; }; f'';
     };
-    difftastic.enable = true;
+    diff-so-fancy.enable = true;
     extraConfig = {
       core = {
         excludesfile = "~/.gitignore";
@@ -28,6 +29,9 @@
       difftool = {
         prompt = false;
         trustExitCode = true;
+        difftastic = {
+          cmd = "${pkgs.difftastic}/bin/difft \"$LOCAL\" \"$REMOTE\"";
+        };
       };
       merge = {
         conflictstyle = "diff3";
@@ -37,6 +41,7 @@
         prompt = false;
         trustExitCode = true;
       };
+      pager.difftool = true;
       submodule.recurse = true;
       init.defaultBranch = "main";
       push.default = "simple";
