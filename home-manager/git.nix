@@ -22,10 +22,12 @@
     };
     diff-so-fancy.enable = true;
     extraConfig = {
+      branch.sort = "committerdate";
       core = {
         excludesfile = "~/.gitignore";
         trustctime = false;
       };
+      diff.algorithm = "histogram";
       difftool = {
         prompt = false;
         trustExitCode = true;
@@ -33,21 +35,26 @@
           cmd = "${pkgs.difftastic}/bin/difft \"$LOCAL\" \"$REMOTE\"";
         };
       };
+      init.defaultBranch = "main";
       merge = {
-        conflictstyle = "diff3";
-        tool = "nvimdiff";
+        conflictstyle = "zdiff3";
+        tool = "kdiff3";
       };
       mergetool = {
         prompt = false;
         trustExitCode = true;
       };
       pager.difftool = true;
-      submodule.recurse = true;
-      init.defaultBranch = "main";
-      push.default = "simple";
       push.autoSetupRemote = true;
       pull.rebase = false;
+      rerere.enabled = true;
+      submodule.recurse = true;
       url."git@github.com:".insteadOf = "https://github.com/";
+
+      # fsckobjects
+      transfer.fsckobjects = true;
+      fetch.fsckobjects = true;
+      receive.fsckObjects = true;
     };
   };
 

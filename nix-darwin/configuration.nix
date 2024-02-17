@@ -60,6 +60,7 @@
       "alfred"
       "bettertouchtool"
       "iterm2"
+      "kdiff3"
       "keka"
       "phoenix"
       "wezterm"
