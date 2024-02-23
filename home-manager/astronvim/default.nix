@@ -10,8 +10,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "AstroNvim";
     repo = "AstroNvim";
-    rev = "v3.39.0";
-    sha256 = "sha256-wttBcj9OoFHx+EukGzQYKHVlApphZXzZqY5zP5chU6g=";
+    rev = "v3.44.0";
+    sha256 = "sha256-fUfh00iYhLJ89wdvtOLM5vAQkZGXanNboqkUWW6Y3Y4=";
   };
 
   installPhase = ''
