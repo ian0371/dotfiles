@@ -86,6 +86,9 @@ return {
 					["[]"] = "@class.outer",
 				},
 			},
+			matchup = { -- better %, etc.
+				enable = true,
+			},
 		},
 		playground = {
 			enable = true,
