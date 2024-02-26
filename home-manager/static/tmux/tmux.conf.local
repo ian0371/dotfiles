@@ -443,18 +443,13 @@ tmux_conf_uninstall_plugins_on_reload=true
 #set -g @plugin 'tmux-plugins/tmux-continuum'
 #set -g @continuum-restore 'on'
 set -g @plugin 'christoomey/vim-tmux-navigator'
-set -g @plugin 'schasse/tmux-jump'
-set -g @jump-key 's'
 set -g @plugin 'joshmedeski/t-smart-tmux-session-manager'
 
 # set -g @plugin 'MunifTanjim/tmux-suspend'
 
-set -g @plugin 'ian0371/tmux-thumbs'
-run-shell ~/.config/tmux/plugins/tmux-thumbs/tmux-thumbs.tmux
-# set -g @thumbs-osc52 1
-set -g @thumbs-position left
-set -g @thumbs-unique enabled
-# set -g @thumbs-regexp-1 '0x[0-9a-fA-F]{40}' # Ethereum address
+set -g @plugin 'Morantron/tmux-fingers'
+set -g @fingers-key f
+set -g @fingers-jump-key s
 
 # -- custom variables ----------------------------------------------------------
 

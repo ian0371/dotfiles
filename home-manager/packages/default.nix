@@ -29,6 +29,7 @@
       tig
       tldr
       tmux
+      tmux-fingers
       tree
       tree-sitter
       universal-ctags
