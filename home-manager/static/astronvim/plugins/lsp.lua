@@ -7,6 +7,7 @@ return {
 		opts = {
 			ensure_installed = {
 				"black",
+				"buf",
 				"eslint-lsp",
 				"gofumpt",
 				"goimports",

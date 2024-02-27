@@ -19,6 +19,7 @@ return {
 			"make",
 			"markdown",
 			"nix",
+			"proto",
 			"python",
 			"query",
 			"rust",
