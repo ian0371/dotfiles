@@ -8,7 +8,6 @@ return {
 	n = {
 		-- second key is the lefthand side of the map
 		-- mappings seen under group name "Buffer"
-		["<leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
 		["<leader>bD"] = {
 			function()
 				require("astronvim.utils.status").heirline.buffer_picker(function(bufnr)
@@ -22,7 +21,7 @@ return {
 		["<leader>b"] = { name = "Buffers" },
 		-- quick save
 		-- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
-		["s"] = { "<cmd>HopChar1<cr>", desc = "Hop char1" },
+		["<leader>s"] = { "<cmd>HopChar1<cr>", desc = "Hop char1" },
 		["ga"] = {
 			"<Plug>(EasyAlign)<cr>",
 			desc = "EasyAlign",
@@ -34,6 +33,9 @@ return {
 		["<C-k>"] = { "<cmd>NavigatorUp<cr>" },
 		["<C-j>"] = { "<cmd>NavigatorDown<cr>" },
 		["<C-p>"] = { "<cmd>NavigatorPrevious<cr>" },
+		["s"] = { require("substitute").operator },
+		["ss"] = { require("substitute").line },
+		["S"] = { require("substitute").eol },
 	},
 	t = {
 		-- setting a mapping to false will disable it
@@ -49,6 +51,7 @@ return {
 			"<Plug>(EasyAlign)<cr>",
 			desc = "EasyAlign",
 		},
-		["p"] = { "pgvy" },
+		["s"] = { require("substitute").visual },
+		-- ["p"] = { "pgvy" }, -- replaced with substitute
 	},
 }

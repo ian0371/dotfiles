@@ -51,6 +51,7 @@ in
       "$HOME/.npm-packages/bin"
       "$HOME/.foundry/bin"
       "$HOME/.cargo/bin"
+      "$(${pkgs.go}/bin/go env GOPATH)/bin"
       "${config.xdg.configHome}/tmux/plugins/t-smart-tmux-session-manager/bin"
     ];
     sessionVariables = {
