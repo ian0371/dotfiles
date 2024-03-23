@@ -35,6 +35,9 @@
           cmd = "${pkgs.difftastic}/bin/difft \"$LOCAL\" \"$REMOTE\"";
         };
       };
+      gpg.format = "ssh";
+      user.signingkey = "~/.ssh/id_rsa.pub";
+      commit.gpgsign = true;
       init.defaultBranch = "main";
       merge = {
         conflictstyle = "zdiff3";
