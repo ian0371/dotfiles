@@ -8,6 +8,7 @@
 let
   astronvim = pkgs.callPackage ./astronvim { };
   binfiles = builtins.foldl' (x: y: x // y) { } (map (file: { ".local/bin/${file}".source = ./static/bin/${file}; }) (builtins.attrNames (builtins.readDir ./static/bin)));
+  sshfiles = builtins.foldl' (x: y: x // y) { } (map (file: { ".ssh/${file}".source = ./static/ssh/${file}; }) (builtins.attrNames (builtins.readDir ./static/ssh)));
 in
 {
   imports = [
@@ -37,10 +38,10 @@ in
     enableNixpkgsReleaseCheck = false;
     file =
       binfiles
+      // sshfiles
       // {
         ".foundry/foundry.toml".source = ./static/foundry.toml;
         ".npmrc".source = ./static/npmrc;
-        ".ssh/config".source = ./static/ssh/config;
         "${config.xdg.configHome}/tmux/tmux.conf".source = ./static/tmux/tmux.conf;
         "${config.xdg.configHome}/tmux/tmux.conf.local".source = ./static/tmux/tmux.conf.local;
       };
