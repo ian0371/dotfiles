@@ -6,7 +6,6 @@
 , ...
 }:
 let
-  astronvim = pkgs.callPackage ./astronvim { };
   binfiles = builtins.foldl' (x: y: x // y) { } (map (file: { ".local/bin/${file}".source = ./static/bin/${file}; }) (builtins.attrNames (builtins.readDir ./static/bin)));
   sshfiles = builtins.foldl' (x: y: x // y) { } (map (file: { ".ssh/${file}".source = ./static/ssh/${file}; }) (builtins.attrNames (builtins.readDir ./static/ssh)));
 in
@@ -93,7 +92,7 @@ in
     "wezterm".source = ./static/wezterm;
     "phoenix".source = ./static/phoenix;
     nvim = {
-      source = astronvim;
+      source = ./static/nvim;
       recursive = true;
     };
   };

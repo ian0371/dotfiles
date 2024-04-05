@@ -51,7 +51,6 @@
       docker-compose
       httpie
       neovim
-      nixpkgs-fmt
       pigz
       vivid
       zoxide
