@@ -3,6 +3,8 @@
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
 --       as this provides autocomplete and documentation while editing
 
+if vim.g.vscode then return {} end
+
 ---@type LazySpec
 return {
   "AstroNvim/astroui",

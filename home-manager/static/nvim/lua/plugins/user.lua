@@ -156,5 +156,6 @@ return {
     "gbprod/substitute.nvim",
     lazy = false,
     config = function() require("substitute").setup() end,
+    cond = true,
   },
 }

@@ -2,13 +2,10 @@
 -- We import this file in `lazy_setup.lua` before the `plugins/` folder.
 -- This guarantees that the specs are processed before any user plugins.
 
-if vim.g.vscode then return {
-  { import = "astrocommunity.recipes.vscode", cond = true },
-} end
-
 ---@type LazySpec
 return {
   "AstroNvim/astrocommunity",
+  { import = "astrocommunity.recipes.vscode" },
   { import = "astrocommunity.pack.lua" },
   -- import/override with your plugins folder
   { import = "astrocommunity.colorscheme.catppuccin" },
