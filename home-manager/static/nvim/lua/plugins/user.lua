@@ -1,6 +1,8 @@
 -- You can also add or configure plugins by creating files in this `plugins/` folder
 -- Here are some examples:
 
+--- cond = true is for VScode
+
 ---@type LazySpec
 return {
   {
@@ -12,6 +14,7 @@ return {
     "phaazon/hop.nvim",
     lazy = false,
     config = function() require("hop").setup() end,
+    cond = true,
   },
 
   -- == Examples of Overriding Plugins ==
@@ -56,6 +59,7 @@ return {
         Rule("a", "a", "-vim")
       )
     end,
+    cond = true,
   },
   {
     "junegunn/vim-easy-align",
@@ -70,6 +74,7 @@ return {
     "kylechui/nvim-surround",
     lazy = false,
     config = function() require("nvim-surround").setup() end,
+    cond = true,
   },
   {
     "numToStr/Navigator.nvim",
@@ -133,6 +138,7 @@ return {
     "andymass/vim-matchup",
     lazy = false,
     setup = function() vim.g.matchup_matchparen_offscreen = { method = "popup" } end,
+    cond = true,
   },
   {
     "cbochs/grapple.nvim",
