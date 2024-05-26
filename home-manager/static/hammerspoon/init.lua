@@ -11,7 +11,16 @@ local function focusAppOnPrimaryScreen(appName)
         local app = hs.application.get(appName) or hs.application.launchOrFocus(appName)
         if not app then return end
 
-        app:activate(true)
+        local primaryScreen = hs.screen.primaryScreen()
+        local windows = app:allWindows()
+
+        for _, win in ipairs(windows) do
+            if win:screen() == primaryScreen then
+                win:focus()
+                win:becomeMain()
+                return
+            end
+        end
     end
 end
 
