@@ -59,10 +59,10 @@
     casks = [
       "alfred"
       "bettertouchtool"
+      "hammerspoon"
       "iterm2"
       "kdiff3"
       "keka"
-      "phoenix"
       "wezterm"
     ];
   };

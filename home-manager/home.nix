@@ -40,6 +40,7 @@ in
       // sshfiles
       // {
         ".foundry/foundry.toml".source = ./static/foundry.toml;
+        ".hammerspoon".source = ./static/hammerspoon;
         ".npmrc".source = ./static/npmrc;
         "${config.xdg.configHome}/tmux/tmux.conf".source = ./static/tmux/tmux.conf;
         "${config.xdg.configHome}/tmux/tmux.conf.local".source = ./static/tmux/tmux.conf.local;
@@ -90,7 +91,6 @@ in
   xdg.configFile = {
     "starship.toml".source = ./static/starship.toml;
     "wezterm".source = ./static/wezterm;
-    "phoenix".source = ./static/phoenix;
     nvim = {
       source = ./static/nvim;
       recursive = true;
