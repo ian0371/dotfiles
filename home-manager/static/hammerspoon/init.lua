@@ -7,39 +7,41 @@ hs.loadSpoon("WindowHalfsAndThirds")
 hs.loadSpoon("WindowScreenLeftAndRight")
 
 local function focusAppOnPrimaryScreen(appName)
-    return function()
-        local app = hs.application.get(appName) or hs.application.launchOrFocus(appName)
-        if not app then return end
+	return function()
+		local app = hs.application.get(appName) or hs.application.launchOrFocus(appName)
+		if not app then
+			return
+		end
 
-        local primaryScreen = hs.screen.primaryScreen()
-        local windows = app:allWindows()
+		local primaryScreen = hs.screen.primaryScreen()
+		local windows = app:allWindows()
 
-        for _, win in ipairs(windows) do
-            if win:screen() == primaryScreen then
-                win:focus()
-                win:becomeMain()
-                return
-            end
-        end
-    end
+		for _, win in ipairs(windows) do
+			if win:screen() == primaryScreen then
+				win:focus()
+				win:becomeMain()
+				return
+			end
+		end
+	end
 end
 
 spoon.WindowHalfsAndThirds:bindHotkeys({
-    left_half   = { {"ctrl", "option"}, "Left" },
-    right_half   = { {"ctrl", "option"}, "Right" },
-    top_half   = { {"ctrl", "option"}, "Up" },
-    bottom_half   = { {"ctrl", "option"}, "Down" },
-    top_left = { {"ctrl", "option"}, "q" },
-    top_right = { {"ctrl", "option"}, "w" },
-    bottom_left = { {"ctrl", "option"}, "a" },
-    bottom_right = { {"ctrl", "option"}, "s" },
-    center = { {"ctrl", "option"}, "z" },
-    max = { {"ctrl", "option"}, "return" },
+	left_half = { { "ctrl", "option" }, "Left" },
+	right_half = { { "ctrl", "option" }, "Right" },
+	top_half = { { "ctrl", "option" }, "Up" },
+	bottom_half = { { "ctrl", "option" }, "Down" },
+	top_left = { { "ctrl", "option" }, "q" },
+	top_right = { { "ctrl", "option" }, "w" },
+	bottom_left = { { "ctrl", "option" }, "a" },
+	bottom_right = { { "ctrl", "option" }, "s" },
+	center = { { "ctrl", "option" }, "z" },
+	max = { { "ctrl", "option" }, "return" },
 })
 
 spoon.WindowScreenLeftAndRight:bindHotkeys({
-    screen_left = { {"ctrl", "option", "cmd"}, "left" },
-    screen_right = { {"ctrl", "option", "cmd"}, "right" },
+	screen_left = { { "ctrl", "option", "cmd" }, "left" },
+	screen_right = { { "ctrl", "option", "cmd" }, "right" },
 })
 
 hs.hotkey.bind({ "option" }, "1", focusAppOnPrimaryScreen("Cursor"))
