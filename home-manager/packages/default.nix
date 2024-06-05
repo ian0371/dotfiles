@@ -11,7 +11,6 @@
       gdu
       gnused
       go
-      groff # aws man page
       graphviz
       htop
       jq
@@ -21,11 +20,9 @@
       neofetch
       nix-prefetch-github
       nodejs
-      pinentry
       python311
       ripgrep
       rustup
-      thumbs
       tig
       tldr
       tmux
@@ -44,8 +41,6 @@
       gnumake
     ]
     ++ (with pkgs.unstable; [
-      awscli2
-      circom
       diffsitter
       docker
       docker-compose
