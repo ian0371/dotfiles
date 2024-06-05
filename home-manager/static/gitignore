@@ -83,3 +83,4 @@ compile_commands.json
 .envrc
 .direnv/
 .flake/
+.vscode/
