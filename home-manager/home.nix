@@ -48,7 +48,7 @@ in
     sessionPath = [
       "$HOME/.local/bin"
       "$HOME/.bun/bin"
-      "$HOME/klay/klaytn/build/bin"
+      "$HOME/kaia/kaia/build/bin"
       "$HOME/.npm-packages/bin"
       "$HOME/.foundry/bin"
       "$HOME/.cargo/bin"
