@@ -50,8 +50,8 @@
 
   homebrew = {
     enable = true;
-    onActivation.upgrade = true;
-    onActivation.autoUpdate = true;
+    onActivation.upgrade = false;
+    onActivation.autoUpdate = false;
     onActivation.cleanup = "uninstall";
     brews = [
       "tart"
@@ -87,8 +87,7 @@
   security.pam.enableSudoTouchIdAuth = true;
 
   fonts = {
-    fontDir.enable = true;
-    fonts = with pkgs.unstable; [
+    packages = with pkgs.unstable; [
       # https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/${fName}.zip
       (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
       (nerdfonts.override { fonts = [ "Meslo" ]; })
