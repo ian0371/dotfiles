@@ -93,4 +93,6 @@
       (nerdfonts.override { fonts = [ "Meslo" ]; })
     ];
   };
+
+  system.stateVersion = 5;
 }

@@ -99,22 +99,6 @@ return {
     },
   },
   {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    config = function()
-      require("copilot").setup {
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-      }
-    end,
-  },
-  {
-    "zbirenbaum/copilot-cmp",
-    event = "InsertEnter",
-    config = function() require("copilot_cmp").setup() end,
-  },
-  {
     "hrsh7th/nvim-cmp",
     -- override the options table that is used in the `require("cmp").setup()` call
     opts = function(_, opts)
@@ -123,7 +107,7 @@ return {
       opts.experimental = { ghost_text = false }
       opts.sources = {
         -- Copilot Source
-        { name = "copilot", group_index = 2 },
+        -- { name = "copilot", group_index = 2 },
         -- Other Sources
         { name = "nvim_lsp", group_index = 2 },
         { name = "path", group_index = 2 },
@@ -136,9 +120,8 @@ return {
   },
   {
     "andymass/vim-matchup",
-    lazy = false,
+    event = "BufReadPost",
     setup = function() vim.g.matchup_matchparen_offscreen = { method = "popup" } end,
-    cond = true,
   },
   {
     "cbochs/grapple.nvim",
