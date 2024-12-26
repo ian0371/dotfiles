@@ -158,7 +158,7 @@
         dotExpansion = true;
       };
       ssh = {
-        identities = [ "id_rsa" "klaytn-cell.pem" ];
+        identities = [ "id_rsa" "klaytn-cell.pem" "core-dev.pem" ];
       };
       extraConfig = ''
         zstyle ':prezto:*:*' case-sensitive 'yes'
