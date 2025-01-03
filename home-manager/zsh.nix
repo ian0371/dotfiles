@@ -58,7 +58,7 @@
       ts = "tmux new-session -s";
       tl = "tmux list-sessions";
 
-      # klaytn
+      # kaia
       ka = "kcn attach http://127.0.0.1:8551";
       kab = "kcn attach http://15.164.192.30:8551";
       kab2 = "kcn attach http://3.39.84.202:8651";
