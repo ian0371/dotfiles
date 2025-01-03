@@ -89,8 +89,8 @@
   fonts = {
     packages = with pkgs.unstable; [
       # https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/${fName}.zip
-      (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
-      (nerdfonts.override { fonts = [ "Meslo" ]; })
+      nerd-fonts.caskaydia-cove
+      nerd-fonts.meslo-lg
     ];
   };
 

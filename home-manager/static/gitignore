@@ -84,3 +84,6 @@ compile_commands.json
 .direnv/
 .flake/
 .vscode/
+
+devbox.json
+devbox.lock

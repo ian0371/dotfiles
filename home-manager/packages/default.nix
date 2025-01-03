@@ -41,6 +41,7 @@
       gnumake
     ]
     ++ (with pkgs.unstable; [
+      cloudflared
       diffsitter
       docker
       docker-compose

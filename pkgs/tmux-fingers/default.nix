@@ -1,17 +1,17 @@
 { pkgs, stdenv, fetchFromGitHub }:
 let
-  version = "2.1.5";
+  version = "2.3.1";
 in
 stdenv.mkDerivation {
   pname = "tmux-fingers";
   inherit version;
 
-  buildInputs = with pkgs; [ crystal shards ];
+  buildInputs = with pkgs; [ crystal shards git openssl cacert ];
   src = fetchFromGitHub {
     owner = "Morantron";
     repo = "tmux-fingers";
     rev = version;
-    sha256 = "sha256-gR3u5IVgFxd6uj7l8Ou8GnEvh8AkjRFgIWKCviISweQ=";
+    sha256 = "sha256-cs8ZspLo92nga/9lhtfe1jdkWGXqWV6egUGRr+D6O6Y=";
   };
 
   buildPhase = ''
