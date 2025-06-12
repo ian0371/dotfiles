@@ -60,10 +60,16 @@
 
       # kaia
       ka = "kcn attach http://127.0.0.1:8551";
-      kab = "kcn attach http://15.164.192.30:8551";
-      kab2 = "kcn attach http://3.39.84.202:8651";
-      kac = "kcn attach http://34.64.197.145:8551";
-      kac2 = "kcn attach http://15.164.40.103:8551";
+      ka2 = "kcn attach http://127.0.0.1:8552";
+      ka3 = "kcn attach http://127.0.0.1:8553";
+      ka4 = "kcn attach http://127.0.0.1:8554";
+      ka5 = "kcn attach http://127.0.0.1:8555";
+      ka6 = "kcn attach http://127.0.0.1:8556";
+      ka7 = "kcn attach http://127.0.0.1:8557";
+      ka8 = "kcn attach http://127.0.0.1:8558";
+      ka9 = "kcn attach http://127.0.0.1:8559";
+      kab = "kcn attach https://archive-en-kairos.node.kaia.io";
+      kac = "kcn attach https://archive-en.node.kaia.io";
 
       # neovim
       vi = "nvim";
