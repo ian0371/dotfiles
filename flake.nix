@@ -5,11 +5,11 @@
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/*.tar.gz";
     nixpkgs-unstable.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.0.tar.gz"; # used by overlay
     darwin = {
-      url = "github:lnl7/nix-darwin";
+      url = "github:LnL7/nix-darwin/nix-darwin-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

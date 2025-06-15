@@ -5,7 +5,6 @@
 , pkgs
 , ...
 }: {
-  services.nix-daemon.enable = true;
   programs.zsh.enable = true;
 
   nixpkgs = {
@@ -59,6 +58,7 @@
     casks = [
       "alfred"
       "bettertouchtool"
+      "ghostty"
       "hammerspoon"
       "iterm2"
       "kdiff3"
@@ -84,7 +84,8 @@
 
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToControl = true;
-  security.pam.enableSudoTouchIdAuth = true;
+  system.primaryUser = "song";
+  ids.gids.nixbld = 30000;
 
   fonts = {
     packages = with pkgs.unstable; [

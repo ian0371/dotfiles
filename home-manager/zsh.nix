@@ -3,7 +3,7 @@
     enable = true;
     autocd = true;
 
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     enableCompletion = true;
 
     shellAliases = {
@@ -92,7 +92,7 @@
       NUL = "> /dev/null 2>&1";
     };
 
-    initExtra = ''
+    initContent = ''
       [ -f ~/.yum3.sh ] && source ~/.yum3.sh
       [ -f ~/.config/wezterm/wezterm.sh ] && source ~/.config/wezterm/wezterm.sh
       eval "$(zoxide init zsh)"
