@@ -96,6 +96,8 @@
       [ -f ~/.yum3.sh ] && source ~/.yum3.sh
       [ -f ~/.config/wezterm/wezterm.sh ] && source ~/.config/wezterm/wezterm.sh
       eval "$(zoxide init zsh)"
+      eval "$(devbox global shellenv)"
+
       alias -s S=nvim
       alias -s diff=nvim
       alias -s go=nvim
@@ -123,14 +125,6 @@
 
       base64url::encode () { base64 -w0 | tr '+/' '-_' | tr -d '='; }
       base64url::decode () { awk '{ if (length($0) % 4 == 3) print $0"="; else if (length($0) % 4 == 2) print $0"=="; else print $0; }' | tr -- '-_' '+/' | base64 -d; }
-
-      proj() {
-          mkdir .flake
-          pushd .flake
-          nix flake init --template "github:the-nix-way/dev-templates#$1"
-          popd
-          echo 'use flake path:.flake' > .envrc
-      }
 
       bindkey "^[[1;3C" forward-word
       bindkey "^[[1;3D" backward-word
