@@ -45,7 +45,7 @@
       diffsitter
       docker
       docker-compose
-      httpie
+      # httpie
       neovim
       pigz
       vivid
