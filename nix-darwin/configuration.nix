@@ -53,12 +53,10 @@
     onActivation.autoUpdate = false;
     onActivation.cleanup = "uninstall";
     brews = [
-      "tart"
     ];
     casks = [
       "alfred"
       "bettertouchtool"
-      "ghostty"
       "hammerspoon"
       "iterm2"
       "kdiff3"
