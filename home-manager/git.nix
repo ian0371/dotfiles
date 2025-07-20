@@ -23,11 +23,17 @@
     diff-so-fancy.enable = true;
     extraConfig = {
       branch.sort = "committerdate";
+      column.ui = "auto";
       core = {
         excludesfile = "~/.gitignore";
         trustctime = false;
       };
-      diff.algorithm = "histogram";
+      diff = {
+        algorithm = "histogram";
+        colorMoved = "plain";
+        mnemonicPrefix = true;
+        renames = true;
+      };
       difftool = {
         prompt = false;
         trustExitCode = true;
@@ -48,15 +54,32 @@
         trustExitCode = true;
       };
       pager.difftool = true;
-      push.autoSetupRemote = true;
+      push = {
+        autoSetupRemote = true;
+        default = "simple";
+        followTags = true;
+      };
       pull.rebase = false;
-      rerere.enabled = true;
+      rebase = {
+        autoSquash = true;
+        autoStash = true;
+        updateRefs = true;
+      };
+      rerere = {
+        autoupdate = true;
+        enabled = true;
+      };
       submodule.recurse = true;
+      tag.sort = "version:refname";
       url."git@github.com:".insteadOf = "https://github.com/";
 
       # fsckobjects
       transfer.fsckobjects = true;
-      fetch.fsckobjects = true;
+      fetch = {
+        all = true;
+        fsckobjects = true;
+        prune = true;
+      };
       receive.fsckObjects = true;
     };
   };
