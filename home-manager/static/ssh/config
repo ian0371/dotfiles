@@ -1,2 +1,4 @@
 # A magical fix for "IPC syntax error" in gpg-agent
 Match host * exec "gpg-connect-agent -q UPDATESTARTUPTTY /bye"
+
+Include ~/.ssh/config.d/*
