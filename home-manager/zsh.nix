@@ -14,8 +14,8 @@
       hms = "home-manager switch --flake ~/dotfiles";
 
       # nix-darwin
-      drg = "darwin-rebuild --list-generations";
-      drs = "darwin-rebuild switch --flake ~/dotfiles";
+      drg = "sudo darwin-rebuild --list-generations";
+      drs = "sudo darwin-rebuild switch --flake ~/dotfiles";
 
       # nixos
       nrs = "sudo nixos-rebuild switch --flake ~/dotfiles";

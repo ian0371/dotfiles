@@ -10,7 +10,6 @@
       curl
       gdu
       gnused
-      go
       graphviz
       htop
       jq

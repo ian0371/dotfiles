@@ -5,7 +5,7 @@
 - nix (use [determinate installer](https://github.com/DeterminateSystems/nix-installer))
 
 ```bash
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate
 ```
 
 On Zsh, run `disable -p '#'`.
@@ -24,7 +24,7 @@ Set `FLAKE_PATH` as one of the followings:
 Specific flake output can be specified like `$FLAKE_PATH#hostname`.
 
 ```bash
-nix run nix-darwin -- switch --flake $FLAKE_PATH
+sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake $FLAKE_PATH
 ```
 
 ### Linux
