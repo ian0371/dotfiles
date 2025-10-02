@@ -92,7 +92,7 @@ in
     "starship.toml".source = ./static/starship.toml;
     "wezterm".source = ./static/wezterm;
     nvim = {
-      source = ./static/nvim;
+      source = ./static/astronvim_v5;
       recursive = true;
     };
   };

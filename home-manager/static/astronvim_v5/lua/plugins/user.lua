@@ -1,25 +1,54 @@
 -- You can also add or configure plugins by creating files in this `plugins/` folder
+-- PLEASE REMOVE THE EXAMPLES YOU HAVE NO INTEREST IN BEFORE ENABLING THIS FILE
 -- Here are some examples:
-
---- cond = true is for VScode
 
 ---@type LazySpec
 return {
+
+  -- == Examples of Adding Plugins ==
+
+  "andweeb/presence.nvim",
   {
     "ray-x/lsp_signature.nvim",
     event = "BufRead",
     config = function() require("lsp_signature").setup() end,
   },
   {
-    "phaazon/hop.nvim",
-    lazy = false,
-    config = function() require("hop").setup() end,
-    cond = true,
+    "smoka7/hop.nvim",
+    version = "*",
+    opts = {
+      keys = "etovxqpdygfblzhckisuran",
+    },
   },
 
   -- == Examples of Overriding Plugins ==
 
-  -- customize alpha options
+  -- customize dashboard options
+  {
+    "folke/snacks.nvim",
+    opts = {
+      dashboard = {
+        preset = {
+          header = table.concat({
+            " █████  ███████ ████████ ██████   ██████ ",
+            "██   ██ ██         ██    ██   ██ ██    ██",
+            "███████ ███████    ██    ██████  ██    ██",
+            "██   ██      ██    ██    ██   ██ ██    ██",
+            "██   ██ ███████    ██    ██   ██  ██████ ",
+            "",
+            "███    ██ ██    ██ ██ ███    ███",
+            "████   ██ ██    ██ ██ ████  ████",
+            "██ ██  ██ ██    ██ ██ ██ ████ ██",
+            "██  ██ ██  ██  ██  ██ ██  ██  ██",
+            "██   ████   ████   ██ ██      ██",
+          }, "\n"),
+        },
+      },
+    },
+  },
+
+  -- You can disable default plugins as follows:
+  { "max397574/better-escape.nvim", enabled = false },
 
   -- You can also easily customize additional setup of plugins that is outside of the plugin's setup call
   {
@@ -31,6 +60,7 @@ return {
       luasnip.filetype_extend("javascript", { "javascriptreact" })
     end,
   },
+
   {
     "windwp/nvim-autopairs",
     config = function(plugin, opts)
@@ -59,64 +89,20 @@ return {
         Rule("a", "a", "-vim")
       )
     end,
-    cond = true,
   },
   {
     "junegunn/vim-easy-align",
     lazy = false,
   },
   {
-    "ruifm/gitlinker.nvim",
+    "linrongbin16/gitlinker.nvim",
     lazy = false,
-    config = function() require("gitlinker").setup() end,
   },
   {
     "kylechui/nvim-surround",
     lazy = false,
     config = function() require("nvim-surround").setup() end,
     cond = true,
-  },
-  {
-    "numToStr/Navigator.nvim",
-    lazy = false,
-    config = function() require("Navigator").setup() end,
-  },
-  {
-    "rcarriga/nvim-notify",
-    opts = {
-      timeout = 2000,
-      top_down = false,
-      max_width = 40,
-      minimum_width = 20,
-    },
-  },
-  {
-    "nvim-telescope/telescope.nvim",
-    opts = {
-      defaults = {
-        path_display = { shorten = 3 },
-      },
-    },
-  },
-  {
-    "hrsh7th/nvim-cmp",
-    -- override the options table that is used in the `require("cmp").setup()` call
-    opts = function(_, opts)
-      -- opts parameter is the default options table
-      -- the function is lazy loaded so cmp is able to be required
-      opts.experimental = { ghost_text = false }
-      opts.sources = {
-        -- Copilot Source
-        -- { name = "copilot", group_index = 2 },
-        -- Other Sources
-        { name = "nvim_lsp", group_index = 2 },
-        { name = "path", group_index = 2 },
-        { name = "luasnip", group_index = 2 },
-      }
-
-      -- return the new table to be used
-      return opts
-    end,
   },
   {
     "andymass/vim-matchup",
@@ -144,7 +130,16 @@ return {
   {
     "gbprod/substitute.nvim",
     lazy = false,
-    config = function() require("substitute").setup() end,
     cond = true,
+    config = function()
+      local substitute = require "substitute"
+      substitute.setup()
+
+      -- mappings
+      vim.keymap.set("n", "s", substitute.operator, { desc = "Substitute operator" })
+      vim.keymap.set("n", "ss", substitute.line, { desc = "Substitute line" })
+      vim.keymap.set("n", "S", substitute.eol, { desc = "Substitute to end of line" })
+      vim.keymap.set("x", "s", substitute.visual, { desc = "Substitute visual" })
+    end,
   },
 }
