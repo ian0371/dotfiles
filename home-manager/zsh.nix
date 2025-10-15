@@ -97,6 +97,7 @@
       [ -f ~/.config/wezterm/wezterm.sh ] && source ~/.config/wezterm/wezterm.sh
       eval "$(zoxide init zsh)"
       eval "$(devbox global shellenv)"
+      eval "$(determinate-nixd completion zsh)"
 
       alias -s S=nvim
       alias -s diff=nvim
