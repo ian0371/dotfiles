@@ -69,7 +69,7 @@
         autoupdate = true;
         enabled = true;
       };
-      submodule.recurse = true;
+      # submodule.recurse = true;
       tag.sort = "version:refname";
       url."git@github.com:".insteadOf = "https://github.com/";
 
