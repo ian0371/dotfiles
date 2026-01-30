@@ -8,6 +8,10 @@
       url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    # rosetta-builder = {
+    #   url = "github:cpick/nix-rosetta-builder";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,6 +40,10 @@
         inherit system;
         specialArgs = { inherit inputs outputs; };
         modules = [
+          # inputs.rosetta-builder.darwinModules.default {
+          #   # see available options in module.nix's `options.nix-rosetta-builder`
+          #   nix-rosetta-builder.onDemand = true;
+          # }
           {
             imports =
               extraModules
