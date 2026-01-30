@@ -58,6 +58,9 @@
       ts = "tmux new-session -s";
       tl = "tmux list-sessions";
 
+      #  devbox
+      devenv = "devbox generate direnv --env-file .env --force";
+
       # kaia
       ka = "kcn attach http://127.0.0.1:8551";
       ka2 = "kcn attach http://127.0.0.1:8552";
