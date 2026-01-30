@@ -7,16 +7,13 @@
   ...
 }:
 let
-  binfiles = builtins.foldl' (x: y: x // y) { } (
-    map (file: { ".local/bin/${file}".source = ./static/bin/${file}; }) (
-      builtins.attrNames (builtins.readDir ./static/bin)
-    )
-  );
-  sshfiles = builtins.foldl' (x: y: x // y) { } (
-    map (file: { ".ssh/${file}".source = ./static/ssh/${file}; }) (
-      builtins.attrNames (builtins.readDir ./static/ssh)
-    )
-  );
+  dirToFiles = dir: prefix:
+    lib.mapAttrs' (name: _: {
+      name = "${prefix}/${name}";
+      value.source = dir + "/${name}";
+    }) (builtins.readDir dir);
+  binfiles = dirToFiles ./static/bin ".local/bin";
+  sshfiles = dirToFiles ./static/ssh ".ssh";
 in
 {
   imports = [

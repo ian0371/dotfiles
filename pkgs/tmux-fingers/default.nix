@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 let
-  version = "2.3.1";
+  version = "2.6.1";
 in
 stdenv.mkDerivation {
   pname = "tmux-fingers";
@@ -20,8 +20,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "Morantron";
     repo = "tmux-fingers";
-    rev = version;
-    sha256 = "sha256-cs8ZspLo92nga/9lhtfe1jdkWGXqWV6egUGRr+D6O6Y=";
+    rev = "be6ef53751f1f2bcc0e3e1463319e100eb2d44bd";
+    sha256 = "sha256-f18y4Jq5Ab/5KZKv8woMTkFGEY2/f5KeRH0sf6R1l1U=";
   };
 
   buildPhase = ''

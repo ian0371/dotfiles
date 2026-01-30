@@ -2,10 +2,9 @@
   description = "ian0371 home-manager and nix-darwin";
 
   inputs = {
-    # nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/*.tar.gz";
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0";
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
     nixpkgs-unstable.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.0.tar.gz"; # used by overlay
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
     darwin = {
       url = "https://flakehub.com/f/nix-darwin/nix-darwin/0";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,6 +25,8 @@
     }@inputs:
     let
       inherit (self) outputs;
+      lib = nixpkgs.lib;
+
       systems = [
         "aarch64-linux"
         "i686-linux"
@@ -33,96 +34,82 @@
         "aarch64-darwin"
         "x86_64-darwin"
       ];
-      forAllSystems = nixpkgs.lib.genAttrs systems;
+      forAllSystems = lib.genAttrs systems;
 
-      darwinConfigWrapper =
+      # Let Determinate Nix handle Nix configuration rather than nix-darwin
+      determinateNixModule =
+        { ... }:
         {
-          system,
-          extraModules ? [ ],
-        }:
-        (inputs.darwin.lib.darwinSystem {
-          inherit system;
-          specialArgs = { inherit inputs outputs; };
-          modules = [
-            inputs.determinate.darwinModules.default
-            (
-              {
-                config,
-                lib,
-                ...
-              }:
-              {
-                # Let Determinate Nix handle Nix configuration rather than nix-darwin
-                determinateNix = {
-                  enable = true;
-                  customSettings = {
-                    experimental-features = "external-builders";
-                    # external-builders = ''[{"systems":["aarch64-linux","x86_64-linux"],"program":"/usr/local/bin/determinate-nixd","args":["builder"]}]'';
-                  };
-                };
-              }
-            )
-            {
-              imports = extraModules ++ [
-                ./nix-darwin/configuration.nix
-              ];
-            }
-          ];
-        });
-      hmConfigWrapper =
+          determinateNix = {
+            enable = true;
+            customSettings = {
+              experimental-features = "external-builders";
+            };
+          };
+        };
+
+      darwinModules = [
+        inputs.determinate.darwinModules.default
+        determinateNixModule
+        ./nix-darwin/configuration.nix
+      ];
+
+      hmModules = extraModules: [
         {
-          system,
-          extraModules ? [ ],
-        }:
-        (inputs.home-manager.lib.homeManagerConfiguration {
-          pkgs = inputs.nixpkgs.legacyPackages.${system};
-          modules = [
-            {
-              _module.args.self = self;
-              _module.args.inputs = self.inputs;
-              imports = extraModules ++ [
-                ./home-manager/home.nix
-              ];
-            }
-          ];
-          extraSpecialArgs = { inherit inputs outputs; };
-        });
+          _module.args.self = self;
+          _module.args.inputs = self.inputs;
+          imports = extraModules ++ [ ./home-manager/home.nix ];
+        }
+      ];
     in
     {
       packages = forAllSystems (system: import ./pkgs { pkgs = nixpkgs.legacyPackages.${system}; });
+
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
 
       overlays = import ./overlays { inherit inputs; };
       homeManagerModules = import ./modules/home-manager;
 
       nixosConfigurations = {
-        nixos = nixpkgs.lib.nixosSystem {
+        nixos = lib.nixosSystem {
           specialArgs = { inherit inputs outputs; };
-          modules = [
-            ./nixos/configuration.nix
-          ];
+          modules = [ ./nixos/configuration.nix ];
         };
       };
 
       darwinConfigurations = {
-        # scutil --get LocalHostName
-        "Chihyunui-Macmini" = darwinConfigWrapper { system = "aarch64-darwin"; };
-        "ianxxui-MacBookPro" = darwinConfigWrapper { system = "aarch64-darwin"; };
+        "Chihyunui-Macmini" = darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          specialArgs = { inherit inputs outputs; };
+          modules = darwinModules;
+        };
+        "ianxxui-MacBookPro" = darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          specialArgs = { inherit inputs outputs; };
+          modules = darwinModules;
+        };
       };
 
       homeConfigurations = {
-        song = hmConfigWrapper { system = "aarch64-darwin"; };
-        yum3 = hmConfigWrapper {
-          system = "aarch64-linux";
-          extraModules = [ { home.username = "yum3"; } ];
+        song = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = hmModules [ ];
         };
-        ubuntu = hmConfigWrapper {
-          system = "x86_64-linux";
-          extraModules = [ { home.username = "ubuntu"; } ];
+        yum3 = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.aarch64-linux;
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = hmModules [ { home.username = "yum3"; } ];
         };
-        ec2-user = hmConfigWrapper {
-          system = "x86_64-linux";
-          extraModules = [ { home.username = "ec2-user"; } ];
+        ubuntu = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = hmModules [ { home.username = "ubuntu"; } ];
+        };
+        ec2-user = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = hmModules [ { home.username = "ec2-user"; } ];
         };
       };
     };

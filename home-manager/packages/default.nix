@@ -4,44 +4,38 @@
   ...
 }:
 {
-  home.packages =
-    with pkgs;
-    [
-      bat
-      bottom
-      coreutils
-      curl
-      gdu
-      gnused
-      graphviz
-      htop
-      jq
-      lazygit
-      less
-      libsixel
-      neofetch
-      nix-prefetch-github
-      nodejs
-      python311
-      ripgrep
-      rustup
-      tig
-      tldr
-      tmux
-      tmux-fingers
-      tree
-      tree-sitter
-      universal-ctags
-      websocat
-      wget
-      xclip
-      unzip
-    ]
-    ++ lib.optionals stdenv.isLinux [
-      coreutils
-      gcc
-      gnumake
-    ]
+  home.packages = (with pkgs; [
+    bat
+    bottom
+    coreutils
+    curl
+    gdu
+    gnused
+    graphviz
+    htop
+    jq
+    lazygit
+    less
+    libsixel
+    neofetch
+    nix-prefetch-github
+    nodejs
+    python311
+    ripgrep
+    rustup
+    tig
+    tldr
+    tmux
+    tmux-fingers
+    tree
+    tree-sitter
+    universal-ctags
+    websocat
+    wget
+    xclip
+    unzip
+  ])
+  ++ lib.optionals pkgs.stdenv.isLinux (with pkgs; [ gcc gnumake ])
     ++ (with pkgs.unstable; [
       cloudflared
       diffsitter
