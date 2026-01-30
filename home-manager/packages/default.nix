@@ -1,8 +1,11 @@
-{ pkgs
-, lib
-, ...
-}: {
-  home.packages = with pkgs;
+{
+  pkgs,
+  lib,
+  ...
+}:
+{
+  home.packages =
+    with pkgs;
     [
       bat
       bottom

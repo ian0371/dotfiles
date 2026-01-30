@@ -1,4 +1,8 @@
-{ pkgs, stdenv, fetchFromGitHub }:
+{
+  pkgs,
+  stdenv,
+  fetchFromGitHub,
+}:
 let
   version = "2.3.1";
 in
@@ -6,7 +10,13 @@ stdenv.mkDerivation {
   pname = "tmux-fingers";
   inherit version;
 
-  buildInputs = with pkgs; [ crystal shards git openssl cacert ];
+  buildInputs = with pkgs; [
+    crystal
+    shards
+    git
+    openssl
+    cacert
+  ];
   src = fetchFromGitHub {
     owner = "Morantron";
     repo = "tmux-fingers";

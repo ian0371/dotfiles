@@ -111,6 +111,12 @@ $ sudo -s
 - nix-darwin: `darwinConfigurations.<username>.system`
 - home-manager: `homeConfigurations.<username>.activationPackage`
 
+### Format
+
+```
+git ls-files -z '*.nix' | xargs -0 -r nix fmt
+```
+
 ## References
 
 - https://nix-community.github.io/home-manager/index.html

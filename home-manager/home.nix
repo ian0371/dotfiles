@@ -1,13 +1,22 @@
-{ inputs
-, outputs
-, lib
-, config
-, pkgs
-, ...
+{
+  inputs,
+  outputs,
+  lib,
+  config,
+  pkgs,
+  ...
 }:
 let
-  binfiles = builtins.foldl' (x: y: x // y) { } (map (file: { ".local/bin/${file}".source = ./static/bin/${file}; }) (builtins.attrNames (builtins.readDir ./static/bin)));
-  sshfiles = builtins.foldl' (x: y: x // y) { } (map (file: { ".ssh/${file}".source = ./static/ssh/${file}; }) (builtins.attrNames (builtins.readDir ./static/ssh)));
+  binfiles = builtins.foldl' (x: y: x // y) { } (
+    map (file: { ".local/bin/${file}".source = ./static/bin/${file}; }) (
+      builtins.attrNames (builtins.readDir ./static/bin)
+    )
+  );
+  sshfiles = builtins.foldl' (x: y: x // y) { } (
+    map (file: { ".ssh/${file}".source = ./static/ssh/${file}; }) (
+      builtins.attrNames (builtins.readDir ./static/ssh)
+    )
+  );
 in
 {
   imports = [
@@ -31,9 +40,7 @@ in
   home = {
     username = lib.mkDefault "song";
     homeDirectory =
-      if pkgs.stdenv.isDarwin
-      then "/Users/${config.home.username}"
-      else "/home/${config.home.username}";
+      if pkgs.stdenv.isDarwin then "/Users/${config.home.username}" else "/home/${config.home.username}";
     enableNixpkgsReleaseCheck = false;
     file =
       binfiles
@@ -61,7 +68,7 @@ in
       LANG = "en_US.UTF-8";
       LS_COLORS = "$(${pkgs.unstable.vivid}/bin/vivid generate catppuccin-latte)";
       DIRENV_LOG_FORMAT = "";
-      FZF_DEFAULT_OPTS = ''--color=bg+:#ccd0da,bg:#eff1f5,spinner:#dc8a78,hl:#d20f39 --color=fg:#4c4f69,header:#d20f39,info:#8839ef,pointer:#dc8a78 --color=marker:#dc8a78,fg+:#4c4f69,prompt:#8839ef,hl+:#d20f39'';
+      FZF_DEFAULT_OPTS = "--color=bg+:#ccd0da,bg:#eff1f5,spinner:#dc8a78,hl:#d20f39 --color=fg:#4c4f69,header:#d20f39,info:#8839ef,pointer:#dc8a78 --color=marker:#dc8a78,fg+:#4c4f69,prompt:#8839ef,hl+:#d20f39";
       NODE_PATH = "$HOME/.npm-packages/lib/node_modules";
       CARGO_NET_GIT_FETCH_WITH_CLI = "true";
       T_SESSION_USE_GIT_ROOT = "true";
@@ -83,7 +90,6 @@ in
     };
     starship.enable = true;
   };
-
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
