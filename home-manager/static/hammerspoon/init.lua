@@ -45,7 +45,7 @@ spoon.WindowScreenLeftAndRight:bindHotkeys({
 })
 
 hs.hotkey.bind({ "option" }, "1", focusAppOnPrimaryScreen("Cursor"))
-hs.hotkey.bind({ "option" }, "2", focusAppOnPrimaryScreen("Arc"))
+hs.hotkey.bind({ "option" }, "2", focusAppOnPrimaryScreen("Vivaldi"))
 hs.hotkey.bind({ "option" }, "3", focusAppOnPrimaryScreen("WezTerm"))
 hs.hotkey.bind({ "option" }, "4", focusAppOnPrimaryScreen("Obsidian"))
 hs.hotkey.bind({ "option" }, "5", focusAppOnPrimaryScreen("Slack"))

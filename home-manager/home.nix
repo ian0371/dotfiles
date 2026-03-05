@@ -48,6 +48,7 @@ in
         ".npmrc".source = ./static/npmrc;
         "${config.xdg.configHome}/tmux/tmux.conf".source = ./static/tmux/tmux.conf;
         "${config.xdg.configHome}/tmux/tmux.conf.local".source = ./static/tmux/tmux.conf.local;
+        "${config.xdg.configHome}/vivaldi/hover.css".source = ./static/vivaldi/hover.css;
       };
     sessionPath = [
       "$HOME/.local/bin"
