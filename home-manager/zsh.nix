@@ -126,6 +126,12 @@
         [[ $TMUX != "" ]] && eval \
                      $(tmux show-env|sed -e '/^-/d' -e "s/'/'\\\\''' /g " -e "s/=\(.*\)/='\\1'/")
       }
+      git-ignore-local () {
+          root=$(git rev-parse --show-toplevel)
+          path=$(readlink -f "$1")
+          relpath=$(relpath -m --relative-to="$root" "$path")
+          echo "$relpath" >> "''${root}.git/info/exclude"
+      }
 
       base64url::encode () { base64 -w0 | tr '+/' '-_' | tr -d '='; }
       base64url::decode () { awk '{ if (length($0) % 4 == 3) print $0"="; else if (length($0) % 4 == 2) print $0"=="; else print $0; }' | tr -- '-_' '+/' | base64 -d; }

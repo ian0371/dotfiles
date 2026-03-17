@@ -19,7 +19,6 @@
         lg3 = ''log --graph --abbrev-commit --decorate --format=format:"%C(bold red)%h%C(reset) - %C(white)%s%C(reset) %C(dim white)%C(bold green)(%ar) %C(bold cyan)<%an>%C(reset)%C(bold yellow)%d%C(reset)" --all'';
         pr = "!f() { git fetch -fu \${2:-$(git remote |grep ^upstream || echo origin)} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f";
         "pr-clean" = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=\${ref#refs/heads/} ; git branch -D $branch ; done";
-        spr = "!f() { git fetch -fu \${2:-$(git remote |grep ^upstream || echo origin)} refs/pull-requests/$1/from:pr/$1 && git checkout pr/$1; }; f";
       };
       branch.sort = "committerdate";
       column.ui = "auto";
