@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 let
-  version = "2.6.1";
+  version = "2.6.2";
 in
 stdenv.mkDerivation {
   pname = "tmux-fingers";
@@ -17,6 +17,7 @@ stdenv.mkDerivation {
     openssl
     cacert
   ];
+
   src = fetchFromGitHub {
     owner = "Morantron";
     repo = "tmux-fingers";

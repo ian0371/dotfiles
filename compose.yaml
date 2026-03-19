@@ -1,0 +1,17 @@
+services:
+  vm:
+    build:
+      context: .
+    environment:
+      QEMU_OPTS: -nographic
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/workspace
+      - nix-store:/nix
+      - nix-cache:/root/.cache/nix
+    working_dir: /workspace
+
+volumes:
+  nix-store:
+  nix-cache:

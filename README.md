@@ -2,7 +2,8 @@
 
 ## Prerequisites
 
-- nix (use [determinate installer](https://github.com/DeterminateSystems/nix-installer))
+- Nix
+  Prefer the [Determinate installer](https://github.com/DeterminateSystems/nix-installer):
 
 ```bash
 curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate
@@ -10,115 +11,161 @@ curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determin
 
 On Zsh, run `disable -p '#'`.
 
-## Run
+## Common Commands
 
-Set `FLAKE_PATH` as one of the followings:
-
-- `~/dotfiles`
-- `github:ian0371/dotfiles`
-
-### MacOS
-
-#### nix-darwin
-
-Specific flake output can be specified like `$FLAKE_PATH#hostname`.
-
-```bash
-sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake $FLAKE_PATH
-```
-
-### Linux
-
-#### home-manager
-
-Specific flake output can be specified like `$FLAKE_PATH#username@hostname`.
-
-```bash
-nix run home-manager -- init --switch $FLAKE_PATH
-```
-
-If such error:
-
-```
-Could not find suitable profile directory, tried /home/ubuntu/.local/state/home-manager/profiles and /nix/var/nix/profiles/per-user/ubuntu
-```
-
-Then, make the directory (or run `nix profile install 'nixpkgs#hello'`).
-
-## Notes
-
-### Broken on Mac
-
-See [link](https://gist.github.com/meeech/0b97a86f235d10bc4e2a1116eec38e7e).
-
-### nix repl
-
-```
-nix repl
-nix-repl> :lf .
-nix-repl> darwinConfigurations
-{ Chihyunui-Macmini = { ... }; ianxxui-MacBookPro = { ... }; }
-```
-
-### Github package hash
-
-```bash
-nix-prefetch-github AstroNvim AstroNvim --rev v3.39.0
-```
-
-### Flake update
+Update flake inputs:
 
 ```bash
 nix flake update
 ```
 
-You might want to rebuild `nix-darwin` and `home-manager`.
+Inspect outputs:
 
-### Garbage collection
+```bash
+nix flake show
+```
+
+Build a declared host:
+
+```bash
+nix run .#mac
+```
+
+Pass another `nh` action to a host package:
+
+```bash
+nix run .#mac -- switch
+```
+
+Format the repo:
+
+```bash
+nix fmt .
+```
+
+## VM Workflow
+
+Run the VM helper:
+
+```bash
+nix run .#vm
+```
+
+If you're on `aarch64-darwin`, run the VM from Docker instead:
+
+```bash
+docker compose run --build --rm vm
+```
+
+[`compose.yaml`](compose.yaml) bind-mounts the repo into `/workspace` and uses named volumes for `/nix` and `/root/.cache/nix`, so local edits are visible immediately and Nix build outputs are reused.
+
+The container defaults to `QEMU_OPTS=-nographic` so the VM stays usable in a terminal. On Linux hosts with KVM available:
+
+```bash
+docker run --rm -it --device /dev/kvm den-vm
+```
+
+## Home Manager Notes
+
+`modules/declarations/hosts.nix` is the declaration file for both hosts and standalone homes.
+
+For a non-root server where you only want Home Manager, add a standalone home declaration:
+
+```nix
+den.homes.x86_64-linux.ubuntu = { };
+den.homes.aarch64-linux.ec2-user = { };
+```
+
+Then apply it with:
+
+```bash
+home-manager switch --flake .#ubuntu
+```
+
+Use `den.homes.<system>.<user> = { };` for Home Manager-only machines.
+Use `den.hosts.<system>.<host>.users.<user> = { };` for real host declarations.
+
+## Add a Server
+
+Add the host in [modules/declarations/hosts.nix](./modules/declarations/hosts.nix):
+
+```nix
+den.hosts.x86_64-linux.web = {
+  users.song = { };
+};
+```
+
+If you need a custom user, add a user aspect under [modules/aspects/users](./modules/aspects/users), following [song.nix](./modules/aspects/users/song.nix) or [tux.nix](./modules/aspects/users/tux.nix).
+
+Then inspect or apply the host with:
+
+```bash
+nix run .#web
+nix run .#web -- switch
+```
+
+## Add a User
+
+1. Add a user aspect in [modules/aspects/users](./modules/aspects/users).
+
+Example:
+
+```nix
+{ den, ... }:
+let
+  config = {
+    includes = [
+      den.provides.primary-user
+      (den.provides.user-shell "zsh")
+    ];
+
+    homeManager.imports = [ ./_alice-home.nix ];
+  };
+in
+{
+  den.aspects.alice = config;
+}
+```
+
+2. Add optional Home Manager overrides in `_alice-home.nix`.
+
+3. Attach the user to a host in [modules/declarations/hosts.nix](./modules/declarations/hosts.nix):
+
+```nix
+den.hosts.aarch64-darwin.mac = {
+  users.song = { };
+  users.alice = { };
+};
+```
+
+Or, for Home Manager-only use without root:
+
+```nix
+den.homes.x86_64-linux.alice = { };
+```
+
+Then apply it with:
+
+```bash
+home-manager switch --flake .#alice
+```
+
+## Notes
+
+Find GitHub package hashes:
+
+```bash
+nix-prefetch-github AstroNvim AstroNvim --rev v3.39.0
+```
+
+Garbage collection:
 
 ```bash
 nix-collect-garbage -d
 ```
 
-### Overlay
-
-Example overlay of nixpkgs overlay in `overlays/default.nix`:
-
-```nix
-(self: super: {
-   neovim-unwrapped = super.neovim-unwrapped.overrideAttrs (previousAttrs: rec {
-     version = "0.8.1";
-     src = pkgs.fetchFromGitHub {
-       owner = "neovim";
-       repo = "neovim";
-       rev = "v${version}";
-       sha256 = "sha256-B2ZpwhdmdvPOnxVyJDfNzUT5rTVuBhJXyMwwzCl9Fac=";
-     };
-  });
-})
-```
-
-### Docker systemd
-
-```
-$ sudo -s
-# systemctl link ~/.nix-profile/etc/systemd/system/*
-# systemctl start docker
-```
-
-### Flake output
-
-- nix-darwin: `darwinConfigurations.<username>.system`
-- home-manager: `homeConfigurations.<username>.activationPackage`
-
-### Format
-
-```
-git ls-files -z '*.nix' | xargs -0 -r nix fmt
-```
-
 ## References
 
-- https://nix-community.github.io/home-manager/index.html
-- https://github.com/Misterio77/nix-starter-configs
-- https://github.com/mic92/dotfiles
+- https://vic.github.io/den
+- https://github.com/nix-community/home-manager
+- https://github.com/nix-community/nh
