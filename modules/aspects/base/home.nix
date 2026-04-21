@@ -62,7 +62,7 @@ let
           "tmux/tmux.conf.local".source = ../../assets/home/tmux/tmux.conf.local;
           "wezterm".source = ../../assets/home/wezterm;
           nvim = {
-            source = ../../assets/home/astronvim_v5;
+            source = ../../assets/home/astronvim_v6;
             recursive = true;
           };
         };
