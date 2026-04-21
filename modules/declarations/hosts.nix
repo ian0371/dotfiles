@@ -1,6 +1,5 @@
 # defines all hosts + users + homes.
 # reusable behavior is routed via host/user profiles.
-{ den, ... }:
 {
   den.hosts.x86_64-linux.igloo = {
     users.tux = { };
@@ -15,7 +14,6 @@
   };
 
   den.hosts.aarch64-darwin.mac = {
-    includes = [ den.aspects.mac ];
     users.song = { };
   };
 

@@ -67,6 +67,10 @@
       hmg = "home-manager generations";
       hmr = "home-manager remove-generations";
       hms = "home-manager switch --flake ~/dotfiles";
+    }
+    // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
+      drg = "sudo darwin-rebuild --list-generations";
+      drs = "nix run ~/dotfiles#mac -- switch";
     };
 
   # xdg.configFile = lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
