@@ -18,6 +18,7 @@ config.color_scheme = "Catppuccin Latte"
 config.font = wezterm.font("CaskaydiaCove Nerd Font Mono")
 config.font_size = 14
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
+config.enable_kitty_keyboard = true -- enables newline (SHIFT ENTER) in claude code
 
 config.audible_bell = "Disabled"
 
