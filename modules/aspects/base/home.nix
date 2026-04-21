@@ -17,6 +17,7 @@ let
               jq
               less
               neovim
+              nh
               nodejs
               ripgrep
               tmux
