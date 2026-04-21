@@ -87,4 +87,5 @@ compile_commands.json
 
 devbox.json
 devbox.lock
-.claude
+.claude/
+.gstack/
