@@ -1,5 +1,3 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
 -- AstroCore provides a central place to modify mappings, vim options, autocommands, and more!
 -- Configuration documentation can be found with `:h astrocore`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
@@ -18,6 +16,40 @@ return {
       diagnostics = { virtual_text = true, virtual_lines = false }, -- diagnostic settings on startup
       highlighturl = true, -- highlight URLs at start
       notifications = true, -- enable notifications at start
+    },
+    -- Treesitter configuration (v6: nvim-treesitter is a parser download utility;
+    -- config moved here from the old plugins/treesitter.lua)
+    treesitter = {
+      highlight = true,
+      indent = true,
+      auto_install = true,
+      ensure_installed = {
+        "bash",
+        "c",
+        "cpp",
+        "diff",
+        "dockerfile",
+        "gitcommit",
+        "gitignore",
+        "go",
+        "html",
+        "java",
+        "javascript",
+        "json",
+        "lua",
+        "make",
+        "markdown",
+        "nix",
+        "proto",
+        "python",
+        "query",
+        "rust",
+        "solidity",
+        "toml",
+        "typescript",
+        "vim",
+        "yaml",
+      },
     },
     -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
     diagnostics = {
@@ -45,6 +77,20 @@ return {
         spell = false, -- sets vim.opt.spell
         signcolumn = "yes", -- sets vim.opt.signcolumn to yes
         wrap = false, -- sets vim.opt.wrap
+        mouse = vim.opt.mouse - "i" - "n" - "v",
+        list = true,
+        listchars = {
+          eol = "↵",
+          nbsp = "○",
+          tab = "→ ",
+          trail = "·",
+          extends = "◀",
+          precedes = "▶",
+        },
+        swapfile = false,
+        tabstop = 4,
+        softtabstop = 4,
+        shiftwidth = 4,
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
@@ -72,6 +118,13 @@ return {
           end,
           desc = "Close buffer from tabline",
         },
+        ["<Leader>s"] = { "<cmd>HopChar1<cr>", desc = "Hop char1" },
+        ["ga"] = {
+          "<Plug>(EasyAlign)<cr>",
+          desc = "EasyAlign",
+        },
+        ["<C-q>"] = { "<C-v>" },
+        ["<F8>"] = { "<cmd>AerialToggle!<cr>", desc = "Toggle Aerial" },
 
         -- tables with just a `desc` key will be registered with which-key if it's installed
         -- this is useful for naming menus
@@ -79,6 +132,12 @@ return {
 
         -- setting a mapping to false will disable it
         -- ["<C-S>"] = false,
+      },
+      x = {
+        ["ga"] = {
+          "<Plug>(EasyAlign)<cr>",
+          desc = "EasyAlign",
+        },
       },
     },
   },

@@ -1,13 +1,9 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
 -- You can also add or configure plugins by creating files in this `plugins/` folder
--- PLEASE REMOVE THE EXAMPLES YOU HAVE NO INTEREST IN BEFORE ENABLING THIS FILE
--- Here are some examples:
 
 ---@type LazySpec
 return {
 
-  -- == Examples of Adding Plugins ==
+  -- == Adding Plugins ==
 
   "andweeb/presence.nvim",
   {
@@ -15,8 +11,15 @@ return {
     event = "BufRead",
     config = function() require("lsp_signature").setup() end,
   },
+  {
+    "smoka7/hop.nvim",
+    version = "*",
+    opts = {
+      keys = "etovxqpdygfblzhckisuran",
+    },
+  },
 
-  -- == Examples of Overriding Plugins ==
+  -- == Overriding Plugins ==
 
   -- customize dashboard options
   {
@@ -31,11 +34,11 @@ return {
             "██   ██      ██    ██    ██   ██ ██    ██",
             "██   ██ ███████    ██    ██   ██  ██████ ",
             "",
-            "███    ██ ██    ██ ██ ███    ███",
-            "████   ██ ██    ██ ██ ████  ████",
-            "██ ██  ██ ██    ██ ██ ██ ████ ██",
-            "██  ██ ██  ██  ██  ██ ██  ██  ██",
-            "██   ████   ████   ██ ██      ██",
+            "███    ██ ██    ██ ██ ███    ███",
+            "████   ██ ██    ██ ██ ████  ████",
+            "██ ██  ██ ██    ██ ██ ██ ████ ██",
+            "██  ██ ██  ██  ██  ██ ██  ██  ██",
+            "██   ████   ████   ██ ██      ██",
           }, "\n"),
         },
       },
@@ -85,6 +88,63 @@ return {
         -- disable for .vim files, but it work for another filetypes
         Rule("a", "a", "-vim")
       )
+    end,
+  },
+  {
+    "junegunn/vim-easy-align",
+    lazy = false,
+  },
+  {
+    "linrongbin16/gitlinker.nvim",
+    cmd = "GitLink",
+    opts = {},
+    keys = {
+      { "<leader>gy", "<cmd>GitLink<cr>", mode = { "n", "v" }, desc = "Yank git link" },
+      { "<leader>gY", "<cmd>GitLink!<cr>", mode = { "n", "v" }, desc = "Open git link" },
+    },
+  },
+  {
+    "kylechui/nvim-surround",
+    lazy = false,
+    config = function() require("nvim-surround").setup() end,
+    cond = true,
+  },
+  {
+    "andymass/vim-matchup",
+    event = "BufReadPost",
+    setup = function() vim.g.matchup_matchparen_offscreen = { method = "popup" } end,
+  },
+  {
+    "cbochs/grapple.nvim",
+    dependencies = {
+      { "nvim-tree/nvim-web-devicons", lazy = true },
+    },
+    cmd = "Grapple",
+    keys = {
+      { "<leader>m", "<cmd>Grapple toggle<cr>", desc = "Grapple toggle tag" },
+      { "<leader>k", "<cmd>Grapple toggle_tags<cr>", desc = "Grapple toggle tags" },
+      { "<leader>K", "<cmd>Grapple toggle_scopes<cr>", desc = "Grapple toggle scopes" },
+      { "<leader>j", "<cmd>Grapple cycle_tags next<cr>", desc = "Grapple cycle next" },
+      { "<leader>J", "<cmd>Grapple cycle_tags prev<cr>", desc = "Grapple cycle prev" },
+      { "<leader>1", "<cmd>Grapple select index=1<cr>", desc = "Grapple select 1" },
+      { "<leader>2", "<cmd>Grapple select index=2<cr>", desc = "Grapple select 2" },
+      { "<leader>3", "<cmd>Grapple select index=3<cr>", desc = "Grapple select 3" },
+      { "<leader>4", "<cmd>Grapple select index=4<cr>", desc = "Grapple select 4" },
+    },
+  },
+  {
+    "gbprod/substitute.nvim",
+    lazy = false,
+    cond = true,
+    config = function()
+      local substitute = require "substitute"
+      substitute.setup()
+
+      -- mappings
+      vim.keymap.set("n", "s", substitute.operator, { desc = "Substitute operator" })
+      vim.keymap.set("n", "ss", substitute.line, { desc = "Substitute line" })
+      vim.keymap.set("n", "S", substitute.eol, { desc = "Substitute to end of line" })
+      vim.keymap.set("x", "s", substitute.visual, { desc = "Substitute visual" })
     end,
   },
 }
