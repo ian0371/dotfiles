@@ -47,6 +47,16 @@ config.unix_domains = {
 		name = "unix",
 	},
 }
+
+local hyperlink_rules = wezterm.default_hyperlink_rules()
+for i = #hyperlink_rules, 1, -1 do
+	if hyperlink_rules[i].format and hyperlink_rules[i].format:match("^mailto:") then
+		table.remove(hyperlink_rules, i)
+	end
+end
+
+config.hyperlink_rules = hyperlink_rules
+
 -- equivalent to `wezterm connect unix`
 -- config.default_gui_startup_args = { "connect", "unix" }
 
